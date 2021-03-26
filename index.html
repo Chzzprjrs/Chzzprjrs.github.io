@@ -1,1 +1,211 @@
-Hello World
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"
+	/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<title>甜甜的test</title>
+	<script charset='UTF-8' src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.16.7/sensorsdata.min.js"></script>
+	<script charset="UTF-8">
+		var sensors = window['sensorsDataAnalytic201505'];
+		sensors.init({
+				sdk_url: 'https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.16.7/sensorsdata.min.js',
+				name: 'sensors',
+				server_url: 'http://10.120.195.209:8106/sa?project=beiyong3',
+				heatmap: {
+										//是否开启点击图，default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭。
+										clickmap:'default',
+										//是否开启触达注意力图，not_collect 表示关闭，不会自动采集 $WebStay 事件，可以设置 'default' 表示开启。
+										scroll_notice_map:'default',
+										collect_tags:{
+													div : true
+										},
+										track_attr:['q','q1'],
+										loadTimeout:10000,
+										//设置多少毫秒后开始渲染点击热力图
+										// collect_url: function(){
+										// 	//如果只采集首页
+										//   if(location.href === 'http://www.wy.com:2233/' || location.href === 'xxx.com/'){
+										// 		return true;
+										// 	}
+										// },
+										collect_element: function(element_target){
+											// 如果这个元素有属性sensors-disable=true时候，不采集。
+											if(element_target.getAttribute('sensors-disable') === 'true'){
+												return false;
+											}else{
+												return true;
+											}
+										},
+										custom_property:function(element_target){
+											//比如您需要给有 data=test 属性的标签的点击事件增加自定义属性 name:'aa' ，则代码如下：
+											if(element_target.getAttribute('data') === 'test'){
+												return {
+													name:'wy'
+												}
+											}
+										},
+										collect_input:function(element_target){
+											if(element_target.id === 'input1'){
+												return true;
+											}
+										},
+										element_selector:'not_use_id'
+						},
+				is_track_single_page:true,
+				source_channel:['as'],
+				preset_properties:{
+					url:false,
+					latest_traffic_source_type:false,
+					latest_utm:true,
+					//是否采集 $latest_traffic_source_type 最近一次流量来源类型，默认值 true。
+					latest_traffic_source_type:true,
+					//是否采集 $latest_search_keyword 最近一次搜索引擎关键字，默认值 true。
+					latest_search_keyword:true,
+					//是否采集 $latest_referrer 最近一次前向地址，默认值 true。
+					latest_referrer:true,
+					//是否采集 $latest_referrer_host 最近一次前向地址，1.14.8 以下版本默认是true，1.14.8 及以上版本默认是 false，需要手动设置为 true 开启。
+					latest_referrer_host:false,
+					//是否采集 $latest_landing_page 最近一次落地页地址，默认值 false。
+	        latest_landing_page:false,
+				},
+				//send_type:'image',
+				// batch_send:true,
+				// batch_send:{
+				// 	datasend_timeout: 6000, //一次请求超过多少秒的话自动取消，防止请求无响应。
+				// 	send_interval: 6000, //间隔几秒发一次数据。
+				// 	one_send_max_length: 6 //一次请求最大发送几条数据，防止数据太大
+				//},
+				// debug_mode:true,
+				//show_log:false
+			});
+    sensors.quick('autoTrack',{
+			cat:'brandy'
+		},function(){
+			console.log('lalal')
+		});
+		// sensors.quick('isReady',function(){
+		// 		// sensors.quick('getAnonymousID');
+		// 		console.log(sensors.quick('getAnonymousID'),sensors.getPresetProperties())
+		// 	});
+	</script>
+	<style>
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+		}
+		
+		#wrap {
+			height: 100%;
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-flex-flow: column;
+			flex-flow: column;
+		}
+		
+		.topbar {
+			background: #00bf8a;
+			height: 50px;
+			border-bottom: 1px solid #fff;
+			line-height: 50px;
+			text-align: center;
+			color: #323237;
+			margin: 10px;
+		}
+		
+		.headerbar {
+			height: 80px;
+			line-height: 80px;
+			color: #fff;
+			font-size: 25px;
+			background: #1BB17B;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="wrap">
+		<header></header>
+		<section>
+			<div id="track1" class="topbar">
+				内嵌标签test：
+				<!-- <a href="javascript:;">222
+					<button id="btnid">333</button>
+				  <span>aaa</span>
+				</a>
+				<input type="text" value="111" id="input1"/> -->
+			</div>
+			<div id="track2" class="topbar">
+				其他类型元素自动采集：
+				<li data-sensors-click style="display: inline-block;">bbb</li>
+				<button data-sensors-click>btn</button>
+				<li q style="display: inline-block;height: 32px;background-color: antiquewhite;">ccc<span style="background-color: aquamarine;">aa</span></li>
+				<p style="display: inline-block;">111<span q1 style="border: 1px solid #eee;">222</span></p>
+			</div>
+			<div id="aa" class="topbar">
+				代码埋点触发元素点击
+			</div>
+			<div class="topbar" sensors-disable="true" >
+				附带属性
+			</div>
+			<div class="topbar" data="test">
+				通过标签特征判断是否增加自定义属性
+			</div>
+			<div id="set" class="topbar">
+				设置用户属性（set）
+			</div>
+			<div id="login" class="topbar">
+				用户关联（login）
+			</div>
+		</section>
+	</div>
+</body>
+
+<script type="text/javascript">
+		
+		document.getElementById('aa').onclick = function(){
+			sensors.quick('trackHeatMap', this, {
+				customProp1: 'test1', //如果需要添加自定义属性需要将 SDK 升级到 1.13.7 及以上版本。
+				customProp2: 'test2'
+			}, function() {
+				console.log('callback');
+			});
+		}
+		// document.getElementById("track1").onclick = function () {
+		// 	//事件1埋点
+		// 	sensors.track('BuyProduct', {
+		// 		ProductName: "MacBook Pro", 
+		// 		ProductPrice: 123.45, 
+		// 		IsAddedToFav: false,
+		// 	});
+
+		// }
+		// document.getElementById("login").onclick = function(){
+		// 	//用户关联
+		// 	// sensors.login("wangyue")
+		// 	sensors.login("wangyue_2")
+
+
+	  //	}
+		// document.getElementById("track2").onclick = function(){
+		// 	//事件2埋点
+		// 	sensors.logout()
+		// }
+		document.getElementById("set").onclick = function(){
+			//设置用户属性
+			sensors.setProfile({email:'wy@xxx'});
+			// sensors.appendProfile({catrgory: ['玉米','白菜']});
+			// sensors.appendProfile({catrgory: '玉米'});
+			sensors.incrementProfile('navClick');
+			sensors.unsetProfile('email');
+		}
+
+		
+</script>
+
+</html>
