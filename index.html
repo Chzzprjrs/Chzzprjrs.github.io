@@ -7,6 +7,7 @@
 	/>
 	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 	<title>甜甜的test</title>
+  <!-- 同步载入 -->
 	<script charset='UTF-8' src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.5/sensorsdata.min.js"></script>
 	<script charset="UTF-8">
 		var sensors = window['sensorsDataAnalytic201505'];
@@ -81,6 +82,12 @@
 				// debug_mode:true,
 				//show_log:false
 			});
+			sensors.use('SiteLinker',
+				{linker: [
+						{part_url: 'github.io', after_hash: false},
+						{part_url: 'example.com', after_hash: false}
+					]}
+			)
     sensors.quick('autoTrack',{
 			cat:'brandy'
 		},function(){
@@ -91,6 +98,43 @@
 		// 		console.log(sensors.quick('getAnonymousID'),sensors.getPresetProperties())
 		// 	});
 	</script>
+  <!-- 异步载入 -->
+  <!-- <script>
+    (function(para) {
+      var p = para.sdk_url, n = para.name, w = window, d = document, s = 'script',x = null,y = null;
+      if(typeof(w['sensorsDataAnalytic201505']) !== 'undefined') {
+          return false;
+        }
+      w['sensorsDataAnalytic201505'] = n;
+      w[n] = w[n] || function(a) {return function() {(w[n]._q = w[n]._q || []).push([a, arguments]);}};
+      var ifs = ['track','quick','register','registerPage','registerOnce','clearAllRegister','trackSignup', 'trackAbtest', 'setProfile','setOnceProfile','appendProfile', 'incrementProfile', 'deleteProfile', 'unsetProfile','identify','login','logout','trackLink'];
+      for (var i = 0; i < ifs.length; i++) {
+        w[n][ifs[i]] = w[n].call(null, ifs[i]);
+      }
+      if (!w[n]._t) {
+        x = d.createElement(s), y = d.getElementsByTagName(s)[0];
+        x.async = 1;
+        x.src = p;
+        x.setAttribute('charset','UTF-8');
+        w[n].para = para;
+        y.parentNode.insertBefore(x, y);
+      }
+    })({
+      sdk_url: '在 github 下载新版本的 sensorsdata.min.js ',
+      name: 'sensors',
+      server_url:'数据接收地址',
+      is_track_single_page:true, // 单页面配置，默认开启，若页面中有锚点设计，需要将该配置删除，否则触发锚点会多触发 $pageview 事件
+      use_client_time:true, 
+        send_type:'beacon',
+      heatmap: {
+        //是否开启点击图，default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭。
+        clickmap:'default',
+        //是否开启触达注意力图，not_collect 表示关闭，不会自动采集 $WebStay 事件，可以设置 'default' 表示开启。
+        scroll_notice_map:'not_collect'
+      }
+    }); 
+    sensors.quick('autoTrack');
+    </script> -->
 	<style>
 		html,
 		body {
@@ -186,13 +230,13 @@
 		// 	});
 
 		// }
-		// document.getElementById("login").onclick = function(){
-		// 	//用户关联
-		// 	// sensors.login("wangyue")
-		// 	sensors.login("wangyue_2")
+		document.getElementById("login").onclick = function(){
+			//用户关联
+			// sensors.login("wangyue")
+			sensors.login("wangyue1")
 
 
-	  //	}
+	  	}
 		// document.getElementById("track2").onclick = function(){
 		// 	//事件2埋点
 		// 	sensors.logout()
