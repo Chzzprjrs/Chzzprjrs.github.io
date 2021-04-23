@@ -95,6 +95,17 @@
 		},function(){
 			console.log('lalal')
 		});
+		sensors.quick('setPlugin', { 
+			popup: function(popup) {
+						// 初始化popup插件 
+						popup.init({
+								api_base_url: 'http://10.120.169.63:8107/sf/plans/?project=default',
+								popup_listener: {
+										onClick: function() {}
+								}
+						})
+				}
+		});
 		// sensors.quick('isReady',function(){
 		// 		// sensors.quick('getAnonymousID');
 		// 		console.log(sensors.quick('getAnonymousID'),sensors.getPresetProperties())
@@ -210,13 +221,14 @@
 			</div>
       <button>btn</button>
 			<div style="width: 100px;height: 100px;background-color: aquamarine;"></div>
+			<input type="text" name="" id="wya">
 		</section>
 	</div>
 </body>
 
 <script type="text/javascript">
 		
-		document.getElementById('aa').onclick = function(){
+		document.getElementById('wya').onclick = function(){
 			sensors.quick('trackHeatMap', this, {
 				customProp1: 'test1', //如果需要添加自定义属性需要将 SDK 升级到 1.13.7 及以上版本。
 				customProp2: 'test2'
