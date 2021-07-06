@@ -5021,6 +5021,7 @@ BatchSend.prototype = {
       sd.log('当前 server_url 为空或不正确，只在控制台打印日志，network 中不会发数据，请配置正确的 server_url！');
       return;
     }
+    alert(2,encodeURIComponent(_.base64Encode(JSON.stringify(data.vals))))
     _.ajax({
       url: server_url,
       type: 'POST',
@@ -5029,6 +5030,7 @@ BatchSend.prototype = {
       timeout: sd.para.batch_send.datasend_timeout,
       cors: true,
       success: function () {
+        alert(1,encodeURIComponent(_.base64Encode(JSON.stringify(data.vals))))
         me.remove(data.keys);
         me.removePendingItems(data.keys);
       },
