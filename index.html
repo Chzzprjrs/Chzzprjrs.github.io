@@ -8,7 +8,7 @@
 	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
 	<title>https的test</title>
   <!-- 同步载入 -->
-	<script charset='UTF-8' src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.15.25/sensorsdata.min.js"></script>
+	<script charset='UTF-8' src="https://cdn.jsdelivr.net/npm/sa-sdk-javascript@1.17.2/sensorsdata.min.js"></script>
 	<script charset="UTF-8">
 		var sensors = window['sensorsDataAnalytic201505'];
 		sensors.init({
@@ -16,6 +16,7 @@
 				name: 'sensors',
 				server_url: 'https://jssdkdata.debugbox.sensorsdata.cn/sa?project=beiyong3',
 				is_track_single_page:true,
+			send_type: "beacon",
 				heatmap: {
 			//是否开启点击图，default 表示开启，自动采集 $WebClick 事件，可以设置 'not_collect' 表示关闭。
 			clickmap:'default',
