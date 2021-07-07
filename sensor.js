@@ -5348,7 +5348,9 @@ dataSend.beacon = function (para) {
 dataSend.beacon.prototype.start = function () {
   var me = this;
   if (typeof navigator === 'object' && typeof navigator.sendBeacon === 'function') {
+    alert(this.data)
     if (!navigator.sendBeacon(this.server_url, this.data)) {
+      alert(1)
       this.defaultData.config.send_type = 'image';
       sendState.realtimeSend(this.defaultData);
     }
