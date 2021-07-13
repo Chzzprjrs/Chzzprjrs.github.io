@@ -3734,18 +3734,7 @@ sd.initPara = function (para) {
     }
   }
   // 优化配置
-if (_.isArray(sd.para.server_url) && sd.para.server_url.length) {
-    for (i = 0; i < sd.para.server_url.length; i++) {
-      if (!/sa\a[^\/]*$/.test(sd.para.server_url[i])) {
-        sd.para.server_url[i] = sd.para.server_url[i].replace(/\/sa$/, '/sa.a').replace(/(\/sa)(\?[^\/]+)$/, '/sa.a$2');
-      }
-    }
-  } else if (!/sa\.a[^\/]*$/.test(sd.para.server_url) && typeof sd.para.server_url === 'string') {
-    sd.para.server_url = sd.para.server_url.replace(/\/sa$/, '/sa.a').replace(/(\/sa)(\?[^\/]+)$/, '/sa.a$2');
-  }
-  if (typeof sd.para.server_url === 'string') {
-    sd.para.debug_mode_url = sd.para.debug_mode_url || sd.para.server_url.replace('sa.a', 'debug');
-  }
+
   // 是否需要非cache，等于每次请求文件
   if (sd.para.noCache === true) {
     sd.para.noCache = '?' + new Date().getTime();
